@@ -1,0 +1,32 @@
+﻿LAB: Google Cloud Fundamentals: Getting Started with Compute Engine
+Create a virtual machine using the GCP Console
+Open Shell:
+
+
+gcloud beta compute --project=qwiklabs-gcp-01-c2564923279d instances create my-vm-1 --zone=us-central1-a --machine-type=e2-medium --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=158646327145-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server --image=debian-9-stretch-v20200910 --image-project=debian-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=my-vm-1 --reservation-affinity=any
+
+
+gcloud compute --project=qwiklabs-gcp-01-c2564923279d firewall-rules create default-allow-http --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=http-server
+
+
+
+
+Create a virtual machine using the gcloud command line
+1. To display a list of all the zones in the region to which Qwiklabs assigned you, enter this partial command gcloud compute zones list | grep followed by the region that Qwiklabs or your instructor assigned you to.
+gcloud compute zones list | grep us-central1
+
+
+2. Set your default zone to the one you just chose
+gcloud config set compute/zone us-central1-b
+
+
+3. To create a VM instance called my-vm-2 in that zone
+gcloud compute instances create "my-vm-2" \
+--machine-type "n1-standard-1" \
+--image-project "debian-cloud" \
+--image "debian-9-stretch-v20190213" \
+--subnet "default"
+
+
+4. Close the Cloud Shell
+                exit
